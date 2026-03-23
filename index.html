@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Todo List</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+
+        <h1>Liste de Tâches</h1>
+
+        <div class="container">
+
+            <form id="taskForm">
+
+                <input type="text" id="taskInput" placeholder="Nouvelle tâche" required>
+                <select id="categoryInput">
+                    <option value="travail">Travail</option>
+                    <option value="maison">Maison</option>
+                    <option value="divers">Divers</option>
+                </select>
+                <button type="submit">Ajouter</button>
+
+            </form>
+
+            <ul id="taskList"></ul>
+
+        </div>
+
+    </body>
+</html>
+
+<script src="model.js"></script>
+<script src="view.js"></script>
+<script src="controller.js"></script>

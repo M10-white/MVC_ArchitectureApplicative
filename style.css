@@ -359,7 +359,6 @@ li:hover {
     transform: translateX(3px);
 }
 
-/* Category styles */
 li.travail {
     background: var(--travail-soft);
     border-color: var(--travail-border);
@@ -554,4 +553,29 @@ li.done span {
 
 .divers-bg {
     background: var(--divers);
+}
+
+button[type="submit"].loading {
+    background: linear-gradient(135deg, #6b5fa6, #3d7ab5);
+    opacity: 0.85;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.spinner {
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }

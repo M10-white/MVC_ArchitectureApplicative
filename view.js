@@ -11,10 +11,21 @@ class TaskView {
         this.statTotal = document.getElementById("statTotal")
         this.statDone = document.getElementById("statDone")
         this.statLeft = document.getElementById("statLeft")
+        this.submitBtn = this.taskForm.querySelector("button[type='submit']")
+    }
+
+    setLoading(isLoading){
+        this.submitBtn.disabled = isLoading
+        if(isLoading){
+            this.submitBtn.innerHTML = `<span class="spinner"></span> Envoi...`
+            this.submitBtn.classList.add("loading")
+        } else {
+            this.submitBtn.innerHTML = `<span class="btn-icon">+</span> Ajouter`
+            this.submitBtn.classList.remove("loading")
+        }
     }
 
     createTaskElement(task){
-
         const li = document.createElement("li")
         li.classList.add(task.category)
 
@@ -31,7 +42,7 @@ class TaskView {
         li.appendChild(span)
         li.appendChild(deleteBtn)
 
-        // Click on task to toggle done
+        // Clic sur la tâche → toggle done
         span.addEventListener("click", () => {
             task.done = !task.done
             li.classList.toggle("done")
@@ -41,28 +52,20 @@ class TaskView {
     }
 
     displayTasks(tasks, controller){
-
         this.taskList.innerHTML = ""
 
-        // Empty state
         if(tasks.length === 0){
             this.emptyState.classList.add("visible")
         } else {
             this.emptyState.classList.remove("visible")
         }
 
-        // Task count
         const word = tasks.length <= 1 ? "tâche" : "tâches"
         this.taskCount.textContent = `${tasks.length} ${word}`
 
         tasks.forEach((task, index) => {
-
             const { li, deleteBtn } = this.createTaskElement(task)
-
-            deleteBtn.addEventListener("click", () => {
-                controller.deleteTask(index)
-            })
-
+            deleteBtn.addEventListener("click", () => controller.deleteTask(index))
             this.taskList.appendChild(li)
         })
     }

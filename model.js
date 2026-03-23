@@ -20,19 +20,30 @@ class TaskModel {
         }
 
         this.tasks = []
+        this.observers = []
         this.load()
 
         TaskModel.instance = this
     }
 
+    subscribe(callback){
+        this.observers.push(callback)
+    }
+
+    notify(){
+        this.observers.forEach(cb => cb(this.tasks))
+    }
+
     addTask(task){
         this.tasks.push(task)
         this.save()
+        this.notify()
     }
 
     removeTask(index){
         this.tasks.splice(index, 1)
         this.save()
+        this.notify()
     }
 
     getTasks(){

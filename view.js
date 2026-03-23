@@ -1,42 +1,3 @@
-class TaskRenderer {
-    render(task){
-        throw new Error("Méthode abstraite")
-    }
-}
-
-class WorkRenderer extends TaskRenderer {
-    render(task){
-
-        const li = document.createElement("li")
-        li.textContent = task.title
-        li.style.backgroundColor = "red"
-
-        return li
-
-    }
-}
-
-class HomeRenderer extends TaskRenderer {
-
-    render(task){
-        const li = document.createElement("li")
-        li.textContent = task.title
-        li.style.backgroundColor = "blue"
-
-        return li
-    }
-}
-
-class MiscRenderer extends TaskRenderer {
-    render(task){
-        const li = document.createElement("li")
-        li.textContent = task.title
-        li.style.backgroundColor = "green"
-
-        return li
-    }
-}
-
 class TaskView {
 
     constructor(){
@@ -44,27 +5,75 @@ class TaskView {
         this.taskInput = document.getElementById("taskInput")
         this.categoryInput = document.getElementById("categoryInput")
         this.taskForm = document.getElementById("taskForm")
+        this.filterButtons = document.querySelectorAll(".filters button")
+        this.emptyState = document.getElementById("emptyState")
+        this.taskCount = document.getElementById("taskCount")
+        this.statTotal = document.getElementById("statTotal")
+        this.statDone = document.getElementById("statDone")
+        this.statLeft = document.getElementById("statLeft")
     }
 
-    displayTasks(tasks){
+    createTaskElement(task){
+
+        const li = document.createElement("li")
+        li.classList.add(task.category)
+
+        if(task.done) li.classList.add("done")
+
+        const span = document.createElement("span")
+        span.textContent = task.title
+
+        const deleteBtn = document.createElement("button")
+        deleteBtn.textContent = "✕"
+        deleteBtn.classList.add("delete")
+        deleteBtn.title = "Supprimer"
+
+        li.appendChild(span)
+        li.appendChild(deleteBtn)
+
+        // Click on task to toggle done
+        span.addEventListener("click", () => {
+            task.done = !task.done
+            li.classList.toggle("done")
+        })
+
+        return { li, deleteBtn }
+    }
+
+    displayTasks(tasks, controller){
+
         this.taskList.innerHTML = ""
 
-        tasks.forEach(task => {
-            let renderer
+        // Empty state
+        if(tasks.length === 0){
+            this.emptyState.classList.add("visible")
+        } else {
+            this.emptyState.classList.remove("visible")
+        }
 
-            if(task.category === "travail"){
-                renderer = new WorkRenderer()
-            }
+        // Task count
+        const word = tasks.length <= 1 ? "tâche" : "tâches"
+        this.taskCount.textContent = `${tasks.length} ${word}`
 
-            else if(task.category === "maison"){
-                renderer = new HomeRenderer()
-            }
+        tasks.forEach((task, index) => {
 
-            else{
-                renderer = new MiscRenderer()
-            }
+            const { li, deleteBtn } = this.createTaskElement(task)
 
-            this.taskList.appendChild(renderer.render(task))
+            deleteBtn.addEventListener("click", () => {
+                controller.deleteTask(index)
+            })
+
+            this.taskList.appendChild(li)
         })
+    }
+
+    updateStats(allTasks){
+        const total = allTasks.length
+        const done = allTasks.filter(t => t.done).length
+        const left = total - done
+
+        this.statTotal.textContent = total
+        this.statDone.textContent = done
+        this.statLeft.textContent = left
     }
 }

@@ -1,36 +1,127 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <title>Todo List</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+</head>
 
-    <body>
+<body>
 
-        <h1>Liste de Tâches</h1>
+<div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+</div>
 
-        <div class="container">
+<div class="header">
+    <h1>Mes <em>Tâches</em></h1>
+    <p class="subtitle">Organisé, concentré, accompli.</p>
+</div>
 
+<div class="app">
+
+    <div class="sidebar-left">
+        <div class="panel">
+            <h3>Nouvelle tâche</h3>
             <form id="taskForm">
-
-                <input type="text" id="taskInput" placeholder="Nouvelle tâche" required>
-                <select id="categoryInput">
-                    <option value="travail">Travail</option>
-                    <option value="maison">Maison</option>
-                    <option value="divers">Divers</option>
-                </select>
-                <button type="submit">Ajouter</button>
-
+                <div class="field">
+                    <label for="taskInput">Titre</label>
+                    <input type="text" id="taskInput" placeholder="Que faut-il faire ?" required>
+                </div>
+                <div class="field">
+                    <label for="categoryInput">Catégorie</label>
+                    <select id="categoryInput">
+                        <option value="travail">💼 Travail</option>
+                        <option value="maison">🏠 Maison</option>
+                        <option value="divers">✨ Divers</option>
+                    </select>
+                </div>
+                <button type="submit">
+                    <span class="btn-icon">+</span>
+                    Ajouter
+                </button>
             </form>
-
-            <ul id="taskList"></ul>
-
         </div>
 
-    </body>
-</html>
+        <div class="panel stats-panel">
+            <h3>Résumé</h3>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-num" id="statTotal">0</span>
+                    <span class="stat-label">Total</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num" id="statDone">0</span>
+                    <span class="stat-label">Faites</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-num" id="statLeft">0</span>
+                    <span class="stat-label">Restantes</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="tasks-header">
+            <span id="taskCount">0 tâche</span>
+        </div>
+        <ul id="taskList"></ul>
+        <div class="empty-state" id="emptyState">
+            <div class="empty-icon">🎯</div>
+            <p>Aucune tâche ici.</p>
+        </div>
+    </div>
+
+    <div class="sidebar-right">
+        <div class="panel">
+            <h3>Filtres</h3>
+            <div class="filters">
+                <button data-filter="all" class="active">
+                    <span class="filter-dot dot-all"></span>
+                    Toutes
+                </button>
+                <button data-filter="travail">
+                    <span class="filter-dot dot-travail"></span>
+                    Travail
+                </button>
+                <button data-filter="maison">
+                    <span class="filter-dot dot-maison"></span>
+                    Maison
+                </button>
+                <button data-filter="divers">
+                    <span class="filter-dot dot-divers"></span>
+                    Divers
+                </button>
+            </div>
+        </div>
+
+        <div class="panel legend-panel">
+            <h3>Légende</h3>
+            <div class="legend">
+                <div class="legend-item">
+                    <span class="legend-color travail-bg"></span>
+                    <span>Travail</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color maison-bg"></span>
+                    <span>Maison</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color divers-bg"></span>
+                    <span>Divers</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 <script src="model.js"></script>
 <script src="view.js"></script>
 <script src="controller.js"></script>
+
+</body>
+</html>

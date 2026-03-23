@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Finir le TP MVC",
+    "category": "travail"
+  },
+  {
+    "title": "Préparer la présentation",
+    "category": "travail"
+  },
+  {
+    "title": "Répondre aux mails",
+    "category": "travail"
+  },
+  {
+    "title": "Faire la vaisselle",
+    "category": "maison"
+  },
+  {
+    "title": "Nettoyer la chambre",
+    "category": "maison"
+  },
+  {
+    "title": "Faire les courses",
+    "category": "maison"
+  },
+  {
+    "title": "Regarder un film",
+    "category": "divers"
+  },
+  {
+    "title": "Aller courir",
+    "category": "divers"
+  },
+  {
+    "title": "Jouer à un jeu vidéo",
+    "category": "divers"
+  }
+]

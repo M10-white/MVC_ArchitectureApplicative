@@ -40,7 +40,6 @@ class TaskController {
 
             try {
                 const response = await saveTaskToServer(new AdvancedTask(title, category))
-
                 if(response.success){
                     this.model.addTask(response.task)
                     this.view.taskInput.value = ""
@@ -57,14 +56,7 @@ class TaskController {
                 this.currentFilter = btn.dataset.filter
                 this.view.filterButtons.forEach(b => b.classList.remove("active"))
                 btn.classList.add("active")
-
-                const allTasks = this.model.getTasks()
-                this.view.updateStats(allTasks)
-                let tasks = allTasks
-                if(this.currentFilter !== "all"){
-                    tasks = tasks.filter(t => t.category === this.currentFilter)
-                }
-                this.view.displayTasks(tasks, this)
+                this.model.notify()
             })
         })
 
@@ -76,6 +68,8 @@ class TaskController {
                         this.model.addTask(new AdvancedTask(t.title, t.category))
                     })
                 })
+        } else {
+            this.model.notify()
         }
     }
 
